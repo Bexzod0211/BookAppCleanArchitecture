@@ -1,6 +1,7 @@
 package uz.gita.bookappcleanarchitecture.di
 
 import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -12,6 +13,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import uz.gita.bookappcleanarchitecture.data.source.local.MySharedPref
 import uz.gita.bookappcleanarchitecture.data.source.local.database.BookDatabase
 import javax.inject.Singleton
 
@@ -32,5 +34,9 @@ class AppModule {
     fun provideBookDatabase(@ApplicationContext context: Context):BookDatabase = Room.databaseBuilder(context,BookDatabase::class.java,"books.db")
         .allowMainThreadQueries()
         .build()
+
+    @Provides
+    @Singleton
+    fun provideSharedPref(@ApplicationContext context: Context):SharedPreferences = context.getSharedPreferences("BookApp",Context.MODE_PRIVATE)
 
 }
