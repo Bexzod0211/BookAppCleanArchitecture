@@ -13,6 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="16dp"
         tools:text="Fantasy"
+        android:textStyle="bold"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:id="@+id/txt_genre"
@@ -24,6 +25,7 @@
         app:layout_constraintTop_toBottomOf="@id/txt_genre"
         app:layout_constraintBottom_toBottomOf="parent"
         android:id="@+id/recycler_books"
+        android:paddingTop="8dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

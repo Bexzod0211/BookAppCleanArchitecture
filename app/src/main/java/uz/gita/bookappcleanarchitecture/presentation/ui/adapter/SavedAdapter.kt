@@ -31,9 +31,6 @@ class SavedAdapter @Inject constructor() : ListAdapter<BookData, SavedAdapter.Ho
             binding.root.setOnClickListener {
                 onItemClickListener.invoke(getItem(adapterPosition))
             }
-            binding.viewReading.setOnClickListener {
-                onItemClickListener.invoke(getItem(adapterPosition))
-            }
         }
 
         fun bind(position: Int){

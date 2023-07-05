@@ -10,53 +10,62 @@
     android:background="#F0F6FB">
 
 
-    <androidx.cardview.widget.CardView
+    <!--<androidx.cardview.widget.CardView
         android:layout_width="260dp"
-        android:layout_height="310dp"
+        android:layout_height="400dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="100dp"
-        android:background="@color/white"
+        android:backgroundTint="#C4F8FA"
         android:id="@+id/view1"
         app:cardElevation="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:layout_marginTop="10dp"
+        />-->
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="230dp"
-        app:layout_constraintStart_toStartOf="@id/view1"
-        app:layout_constraintEnd_toEndOf="@id/view1"
-        app:layout_constraintTop_toTopOf="parent"
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:id="@+id/card_img_cover"
         android:layout_marginTop="8dp"
-        android:src="@drawable/let_me_in"
-        android:elevation="2dp"
-        android:scaleType="fitXY"
-        android:id="@+id/img_cover"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="8dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="260dp"
+            app:layout_constraintStart_toStartOf="@id/view1"
+            app:layout_constraintEnd_toEndOf="@id/view1"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/let_me_in"
+            android:elevation="2dp"
+            android:scaleType="fitXY"
+            android:id="@+id/img_cover"
+            />
+    </androidx.cardview.widget.CardView>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/img_cover"
-        app:layout_constraintStart_toStartOf="@id/view1"
-        app:layout_constraintEnd_toEndOf="@id/view1"
-        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/card_img_cover"
+        app:layout_constraintStart_toStartOf="@id/card_img_cover"
+        app:layout_constraintEnd_toEndOf="@id/card_img_cover"
+        android:layout_marginTop="8dp"
         android:textColor="@color/black"
         tools:text="Aruvi The Horseman"
         android:elevation="2dp"
-        android:textSize="18sp"
+        android:textSize="16sp"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:id="@+id/txt_title"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/txt_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/txt_author"
-        android:drawableStart="@drawable/ic_star"
+        app:layout_constraintStart_toStartOf="@id/card_img_cover"
+        app:layout_constraintTop_toBottomOf="@id/txt_author"
+        android:drawableEnd="@drawable/ic_star"
         android:elevation="2dp"
         tools:text="4.7"
         android:textColor="#F0AC62"
@@ -67,18 +76,21 @@
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/txt_star"
+        app:layout_constraintStart_toStartOf="@id/card_img_cover"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/txt_star"
+        app:layout_constraintTop_toBottomOf="@id/txt_title"
         android:elevation="2dp"
         android:textColor="@color/black"
+        android:textSize="16sp"
         tools:text="By OlmosJt"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:id="@+id/txt_author"
         />
 
-
+<!--
     <View
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -88,9 +100,9 @@
         android:layout_marginTop="16dp"
         android:background="#BABABA"
         android:elevation="2dp"
-        />
+        />-->
     
-    <TextView
+    <!--<TextView
         android:layout_width="80dp"
         android:layout_height="55dp"
         app:layout_constraintEnd_toEndOf="@id/view1"
@@ -104,22 +116,24 @@
         android:textColor="@color/white"
         android:gravity="center"
         android:id="@+id/txt_percent"
-        />
+        />-->
 
 
-    <androidx.appcompat.widget.AppCompatButton
+    <!--<androidx.appcompat.widget.AppCompatButton
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="@id/txt_percent"
-        app:layout_constraintBottom_toBottomOf="@id/txt_percent"
-        app:layout_constraintEnd_toStartOf="@id/txt_percent"
+        android:layout_height="55dp"
+        app:layout_constraintBottom_toBottomOf="@id/view1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/view1"
-        android:layout_marginStart="16dp"
-        android:background="#F0A157"
+        android:layout_marginHorizontal="16dp"
+        android:background="#57EBF0"
         android:id="@+id/btn_continue_reading"
-        android:text="Continue Reading"
+        android:text="Let's Start"
         android:textAllCaps="false"
         android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/txt_author"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
         android:textSize="16sp"
         android:textStyle="normal"
         />
@@ -130,8 +144,8 @@
         app:layout_constraintTop_toTopOf="@id/btn_continue_reading"
         app:layout_constraintBottom_toBottomOf="@id/btn_continue_reading"
         app:layout_constraintStart_toStartOf="@id/btn_continue_reading"
-        app:layout_constraintEnd_toEndOf="@id/txt_percent"
+        app:layout_constraintEnd_toEndOf="@id/btn_continue_reading"
         android:elevation="5dp"
         android:id="@+id/view_reading"
-        />
+        />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

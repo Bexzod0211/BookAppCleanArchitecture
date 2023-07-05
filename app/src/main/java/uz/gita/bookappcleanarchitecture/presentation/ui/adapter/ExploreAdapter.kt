@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import uz.gita.bookappcleanarchitecture.R
 import uz.gita.bookappcleanarchitecture.data.model.BookData
-import uz.gita.bookappcleanarchitecture.databinding.ItemBookExploreBinding
+import uz.gita.bookappcleanarchitecture.databinding.ItemBookRecommendBinding
 import uz.gita.bookappcleanarchitecture.databinding.ItemBookSavedBinding
 import javax.inject.Inject
 
@@ -26,13 +26,10 @@ class ExploreAdapter @Inject constructor() : ListAdapter<BookData, ExploreAdapte
 
     }
 
-    inner class Holder(private val binding: ItemBookExploreBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class Holder(private val binding: ItemBookRecommendBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
-                onItemClickListener.invoke(getItem(adapterPosition))
-            }
-            binding.viewReading.setOnClickListener {
                 onItemClickListener.invoke(getItem(adapterPosition))
             }
         }
@@ -53,7 +50,7 @@ class ExploreAdapter @Inject constructor() : ListAdapter<BookData, ExploreAdapte
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        return Holder(ItemBookExploreBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return Holder(ItemBookRecommendBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {

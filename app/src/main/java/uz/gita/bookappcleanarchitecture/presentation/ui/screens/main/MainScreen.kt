@@ -9,7 +9,6 @@ import uz.gita.bookappcleanarchitecture.R
 import uz.gita.bookappcleanarchitecture.databinding.ScreenMainBinding
 import uz.gita.bookappcleanarchitecture.presentation.ui.screens.explore.ExploreScreen
 import uz.gita.bookappcleanarchitecture.presentation.ui.screens.home.HomeScreen
-import uz.gita.bookappcleanarchitecture.presentation.ui.screens.profile.ProfileScreen
 import uz.gita.bookappcleanarchitecture.presentation.ui.screens.saved.SavedScreen
 import uz.gita.bookappcleanarchitecture.utils.addScreen
 import uz.gita.bookappcleanarchitecture.utils.replaceScreen
@@ -33,9 +32,9 @@ class MainScreen : Fragment(R.layout.screen_main) {
                 R.id.menu_explore->{
                     replaceScreen(ExploreScreen())
                 }
-                R.id.menu_profile->{
-                    replaceScreen(ProfileScreen())
-                }
+//                R.id.menu_profile->{
+//                    replaceScreen(ProfileScreen())
+//                }
             }
             true
         }

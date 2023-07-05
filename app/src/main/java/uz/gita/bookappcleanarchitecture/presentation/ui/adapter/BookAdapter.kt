@@ -31,9 +31,7 @@ class BookAdapter @Inject constructor() : ListAdapter<BookData, BookAdapter.Hold
             binding.root.setOnClickListener {
                 onItemClickListener.invoke(getItem(adapterPosition))
             }
-            binding.viewReading.setOnClickListener {
-                onItemClickListener.invoke(getItem(adapterPosition))
-            }
+
         }
 
         fun bind(position: Int){
