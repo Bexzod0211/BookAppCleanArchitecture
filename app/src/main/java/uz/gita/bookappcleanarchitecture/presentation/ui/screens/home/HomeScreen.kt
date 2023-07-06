@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -47,6 +48,8 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         viewModel.toastLiveData.observe(viewLifecycleOwner,toastObserver)
         viewModel.placeHolderVisibilityLiveData.observe(viewLifecycleOwner,placeHolderVisibilityObserver)
         viewModel.openShareMenuLiveData.observe(viewLifecycleOwner,openShareMenuObserver)
+        viewModel.lastReadBookLiveData.observe(viewLifecycleOwner,lastReadBookObserver)
+        viewModel.recentViewVisibilityLiveData.observe(viewLifecycleOwner,recentViewVisibilityObserver)
 
         binding.apply {
             recyclerHome.adapter = adapter
@@ -83,7 +86,25 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             btnShare.setOnClickListener {
                 viewModel.btnShareClicked()
             }
+            binding.innerView2.setOnClickListener {
+                viewModel.openReadScreen()
+            }
         }
+    }
+
+    private val lastReadBookObserver = Observer<BookData> {
+        binding.apply {
+            Glide
+                .with(requireContext())
+                .load(it.coverUrl)
+                .into(imageBook)
+            txtAuthor.text = it.author
+            txtTitle.text = it.title
+        }
+    }
+
+    private val recentViewVisibilityObserver = Observer<Int> {
+        binding.innerView2.visibility = it
     }
 
     private val openShareMenuObserver = Observer<Unit> {

@@ -3,6 +3,7 @@ package uz.gita.bookappcleanarchitecture.presentation.ui.screens.read
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappcleanarchitecture.R
@@ -15,9 +16,9 @@ import java.io.File
 class ReadScreen : Fragment(R.layout.screen_read) {
     private val binding:ScreenReadBinding by viewBinding()
     private lateinit var book:BookData
-
+    private val args:ReadScreenArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        book = arguments?.getSerializable("book") as BookData
+        book = args.book
 
         val file = File(requireContext().filesDir,book.title)
 

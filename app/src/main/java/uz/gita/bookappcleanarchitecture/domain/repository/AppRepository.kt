@@ -12,4 +12,6 @@ interface AppRepository {
     suspend fun getBooksByGenre(genre:String):Result<List<BookData>>
     suspend fun getRecommendedBooksByQuery(query:String):Result<List<BookData>>
     suspend fun getBooksByQueryAndGenre(query: String,genre: String):Result<List<BookData>>
+    suspend fun saveLastReadBook(book:BookData):Result<Unit>
+    suspend fun getLastReadBook():Result<BookData?>
 }

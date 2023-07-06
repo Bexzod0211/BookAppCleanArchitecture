@@ -8,7 +8,7 @@ interface DescriptionViewModel {
     val messageLiveData:LiveData<String>
     val changeImgResLiveData:LiveData<Int>
     val enablingDownloadBtnLiveData:LiveData<Boolean>
-    val openScreenReadLiveData:LiveData<BookData>
+//    val openScreenReadLiveData:LiveData<BookData>
     val enablingReadBtnLiveData:LiveData<Boolean>
 
     fun btnDownLoadClicked(context: Context,book:BookData)

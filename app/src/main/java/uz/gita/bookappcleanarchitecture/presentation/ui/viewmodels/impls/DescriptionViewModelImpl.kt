@@ -25,7 +25,7 @@ class DescriptionViewModelImpl @Inject constructor(
     override val messageLiveData:MutableLiveData<String> = MutableLiveData()
     override val changeImgResLiveData:MutableLiveData<Int> = MutableLiveData()
     override val enablingDownloadBtnLiveData:MutableLiveData<Boolean> = MutableLiveData()
-    override val openScreenReadLiveData:MutableLiveData<BookData> = MutableLiveData()
+//    override val openScreenReadLiveData:MutableLiveData<BookData> = MutableLiveData()
     override val enablingReadBtnLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     override fun btnDownLoadClicked(context: Context, book: BookData) {
@@ -47,7 +47,14 @@ class DescriptionViewModelImpl @Inject constructor(
     }
 
     override fun btnReadClicked(book: BookData) {
-        openScreenReadLiveData.value = book
+//        openScreenReadLiveData.value = book
+        viewModelScope.launch {
+            useCase.saveLastReadBook(book)
+                .onEach {
+
+                }.launchIn(viewModelScope)
+            direction.openReadScreen(book)
+        }
     }
 
     override fun btnBackClicked() {

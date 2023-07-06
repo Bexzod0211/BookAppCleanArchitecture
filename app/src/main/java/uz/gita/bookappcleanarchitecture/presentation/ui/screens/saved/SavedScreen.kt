@@ -30,7 +30,7 @@ class SavedScreen : Fragment(R.layout.screen_saved) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.openDescriptionScreenLiveData.observe(this,openDescriptionScreenObserver)
+//        viewModel.openDescriptionScreenLiveData.observe(this,openDescriptionScreenObserver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

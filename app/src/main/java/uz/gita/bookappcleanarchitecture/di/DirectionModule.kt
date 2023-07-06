@@ -8,10 +8,12 @@ import uz.gita.bookappcleanarchitecture.presentation.direction.DescriptionDirect
 import uz.gita.bookappcleanarchitecture.presentation.direction.ExploreDirection
 import uz.gita.bookappcleanarchitecture.presentation.direction.HomeDirection
 import uz.gita.bookappcleanarchitecture.presentation.direction.MoreDirection
+import uz.gita.bookappcleanarchitecture.presentation.direction.SavedDirection
 import uz.gita.bookappcleanarchitecture.presentation.direction.impl.DescriptionDirectionImpl
 import uz.gita.bookappcleanarchitecture.presentation.direction.impl.ExploreDirectionImpl
 import uz.gita.bookappcleanarchitecture.presentation.direction.impl.HomeDirectionImpl
 import uz.gita.bookappcleanarchitecture.presentation.direction.impl.MoreDirectionImpl
+import uz.gita.bookappcleanarchitecture.presentation.direction.impl.SavedDirectionImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,4 +30,7 @@ interface DirectionModule {
 
     @Binds
     fun bindDescriptionDirection(impl:DescriptionDirectionImpl):DescriptionDirection
+
+    @Binds
+    fun bindSavedDirection(impl:SavedDirectionImpl):SavedDirection
 }

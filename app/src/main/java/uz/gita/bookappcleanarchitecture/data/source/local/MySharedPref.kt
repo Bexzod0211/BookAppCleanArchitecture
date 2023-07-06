@@ -22,9 +22,9 @@ class MySharedPref @Inject constructor(
         pref.edit().putString(LAST_READ_BOOK,value).apply()
     }
 
-    fun getLastReadBook():BookData{
+    fun getLastReadBook():BookData?{
         val type:Type = object:TypeToken<BookData>(){}.type
-        val json = pref.getString(LAST_READ_BOOK,"").toString()
+        val json = pref.getString(LAST_READ_BOOK,null).toString()
         val book = Gson().fromJson<BookData>(json,type)
         return book
     }

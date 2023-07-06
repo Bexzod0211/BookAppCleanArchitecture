@@ -14,6 +14,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import uz.gita.bookappcleanarchitecture.data.model.BookData
 import uz.gita.bookappcleanarchitecture.data.model.CategoryData
+import uz.gita.bookappcleanarchitecture.data.source.local.MySharedPref
 import uz.gita.bookappcleanarchitecture.data.source.local.database.BookDatabase
 import uz.gita.bookappcleanarchitecture.data.source.local.entities.BookEntity
 import uz.gita.bookappcleanarchitecture.utils.myLog
@@ -25,7 +26,8 @@ import javax.inject.Singleton
 class AppRepositoryImpl @Inject constructor(
     private val fireStore: FirebaseFirestore,
     private val storage: FirebaseStorage,
-    private val bookDatabase: BookDatabase
+    private val bookDatabase: BookDatabase,
+    private val localStorage:MySharedPref
 ) : AppRepository {
 
 
@@ -182,6 +184,15 @@ class AppRepositoryImpl @Inject constructor(
         }catch (e:Exception){
             return@withContext Result.failure(e)
         }
+    }
+
+    override suspend fun saveLastReadBook(book: BookData): Result<Unit> {
+        localStorage.saveLastReadBook(book)
+        return Result.success(Unit)
+    }
+
+    override suspend fun getLastReadBook(): Result<BookData?> {
+        return Result.success(localStorage.getLastReadBook())
     }
 
 

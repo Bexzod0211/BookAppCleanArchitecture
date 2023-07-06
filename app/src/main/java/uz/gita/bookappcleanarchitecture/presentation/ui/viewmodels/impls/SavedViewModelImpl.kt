@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import uz.gita.bookappcleanarchitecture.data.model.BookData
+import uz.gita.bookappcleanarchitecture.presentation.direction.SavedDirection
 import uz.gita.bookappcleanarchitecture.presentation.ui.viewmodels.SavedViewModel
 import uz.gita.bookappcleanarchitecture.usecase.SavedUseCase
 import uz.gita.bookappcleanarchitecture.usecase.impls.SavedUseCaseImpl
@@ -16,11 +18,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SavedViewModelImpl @Inject constructor(
-    private val useCase:SavedUseCase
+    private val useCase:SavedUseCase,
+    private val direction:SavedDirection
     ) : ViewModel(), SavedViewModel {
     override val savedBooksLiveData: MutableLiveData<List<BookData>> = MutableLiveData()
     override val messageLiveData: MutableLiveData<String> = MutableLiveData()
-    override val openDescriptionScreenLiveData: MutableLiveData<BookData> = MutableLiveData()
+//    override val openDescriptionScreenLiveData: MutableLiveData<BookData> = MutableLiveData()
     override val placeHolderLiveData: MutableLiveData<Int> = MutableLiveData()
 
     init {
@@ -44,6 +47,9 @@ class SavedViewModelImpl @Inject constructor(
     }
 
     override fun itemClicked(book: BookData) {
-        openDescriptionScreenLiveData.value = book
+//        openDescriptionScreenLiveData.value = book
+        viewModelScope.launch {
+            direction.openDescriptionScreen(book)
+        }
     }
 }

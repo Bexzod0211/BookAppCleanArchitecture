@@ -21,5 +21,9 @@ class DescriptionUseCaseImpl @Inject constructor(
             emit(Result.failure(it))
         }
 
+    override fun saveLastReadBook(book: BookData): Flow<Result<Unit>> = flow{
+        emit(repository.saveLastReadBook(book))
+    }
+
 
 }

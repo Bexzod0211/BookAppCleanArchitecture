@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainScreen_to_moreScreen"
             app:destination="@id/moreScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_readScreen"
+            app:destination="@id/readScreen" />
     </fragment>
     <fragment
         android:id="@+id/descriptionScreen"
@@ -25,6 +28,9 @@
         <argument
             android:name="book"
             app:argType="uz.gita.bookappcleanarchitecture.data.model.BookData" />
+        <action
+            android:id="@+id/action_descriptionScreen_to_readScreen"
+            app:destination="@id/readScreen" />
     </fragment>
     <fragment
         android:id="@+id/moreScreen"
@@ -37,5 +43,14 @@
         <action
             android:id="@+id/action_moreScreen_to_descriptionScreen"
             app:destination="@id/descriptionScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/readScreen"
+        android:name="uz.gita.bookappcleanarchitecture.presentation.ui.screens.read.ReadScreen"
+        android:label="screen_read"
+        tools:layout="@layout/screen_read" >
+        <argument
+            android:name="book"
+            app:argType="uz.gita.bookappcleanarchitecture.data.model.BookData" />
     </fragment>
 </navigation>

@@ -10,10 +10,13 @@ interface HomeViewModel {
     val openDescriptionScreenLiveData:LiveData<BookData>
     val placeHolderVisibilityLiveData:LiveData<Int>
     val openShareMenuLiveData:LiveData<Unit>
+    val lastReadBookLiveData:LiveData<BookData>
+    val recentViewVisibilityLiveData:LiveData<Int>
 
     fun loadRecommendedBooks()
     fun itemClicked(book:BookData)
     fun moreClickedBy(name:String)
     fun onQueryChanged(query:String)
     fun btnShareClicked()
+    fun openReadScreen()
 }

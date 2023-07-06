@@ -7,4 +7,5 @@ import uz.gita.bookappcleanarchitecture.data.model.BookData
 interface HomeUseCase {
     fun getRecommendedBooks():Flow<Result<List<BookData>>>
     fun getBooksByQuery(query:String):Flow<Result<List<BookData>>>
+    fun getLastReadBook():Flow<Result<BookData?>>
 }

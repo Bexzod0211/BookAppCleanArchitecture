@@ -6,7 +6,7 @@ import uz.gita.bookappcleanarchitecture.data.model.BookData
 interface SavedViewModel {
     val savedBooksLiveData:LiveData<List<BookData>>
     val messageLiveData:LiveData<String>
-    val openDescriptionScreenLiveData:LiveData<BookData>
+//    val openDescriptionScreenLiveData:LiveData<BookData>
     val placeHolderLiveData:LiveData<Int>
 
     fun loadSavedBooks()

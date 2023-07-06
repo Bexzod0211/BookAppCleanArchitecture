@@ -7,4 +7,5 @@ import uz.gita.bookappcleanarchitecture.data.model.BookData
 interface DescriptionUseCase {
 
     fun downLoadFile(context: Context, book: BookData): Flow<Result<Unit>>
+    fun saveLastReadBook(book:BookData):Flow<Result<Unit>>
 }
