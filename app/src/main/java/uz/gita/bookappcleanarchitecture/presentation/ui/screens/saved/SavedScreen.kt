@@ -36,6 +36,7 @@ class SavedScreen : Fragment(R.layout.screen_saved) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.messageLiveData.observe(viewLifecycleOwner,messageObserver)
          viewModel.savedBooksLiveData.observe(viewLifecycleOwner,savedBooksObserver)
+        viewModel.placeHolderLiveData.observe(viewLifecycleOwner,placeHolderObserver)
 
         binding.apply {
             recyclerSaved.adapter = adapter
@@ -45,6 +46,10 @@ class SavedScreen : Fragment(R.layout.screen_saved) {
         adapter.setOnItemClickListener {
             viewModel.itemClicked(it)
         }
+    }
+
+    private val placeHolderObserver = Observer<Int> {
+        binding.placeHolder.visibility = it
     }
 
     private val messageObserver = Observer<String>{

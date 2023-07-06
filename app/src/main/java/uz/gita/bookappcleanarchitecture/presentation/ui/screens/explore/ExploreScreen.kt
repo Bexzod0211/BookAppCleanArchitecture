@@ -46,6 +46,10 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
         adapter.setOnItemClickListener {
             viewModel.itemClicked(it)
         }
+
+        adapter.setOnMoreBtnClicked {
+            viewModel.openMoreScreen(it)
+        }
     }
 
     private val allBooksObserver = Observer<List<CategoryData>> {

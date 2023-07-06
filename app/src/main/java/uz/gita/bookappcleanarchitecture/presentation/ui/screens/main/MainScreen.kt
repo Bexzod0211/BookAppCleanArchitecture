@@ -18,19 +18,19 @@ class MainScreen : Fragment(R.layout.screen_main) {
     private val binding by viewBinding(ScreenMainBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        addScreen(HomeScreen())
+        replaceScreen(HomeScreen())
 
 
         binding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.menu_home->{
-                    replaceScreen(HomeScreen())
+                    addScreen(HomeScreen())
                 }
                 R.id.menu_saved->{
-                    replaceScreen(SavedScreen())
+                    addScreen(SavedScreen())
                 }
                 R.id.menu_explore->{
-                    replaceScreen(ExploreScreen())
+                    addScreen(ExploreScreen())
                 }
 //                R.id.menu_profile->{
 //                    replaceScreen(ProfileScreen())

@@ -14,7 +14,6 @@ import javax.inject.Inject
 
 class HomeUseCaseImpl @Inject constructor(private val repository: AppRepository) : HomeUseCase {
 
-
     override fun getRecommendedBooks(): Flow<Result<List<BookData>>> = flow {
         emit(repository.getAllRecommendedBooks())
     }
@@ -22,6 +21,10 @@ class HomeUseCaseImpl @Inject constructor(private val repository: AppRepository)
         .catch {
             emit(Result.failure(it))
         }
+
+    override fun getBooksByQuery(query: String): Flow<Result<List<BookData>>> = flow{
+        emit(repository.getRecommendedBooksByQuery(query))
+    }
 
 
 }

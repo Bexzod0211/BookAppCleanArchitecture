@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,10 +24,10 @@ class DescriptionScreen : Fragment(R.layout.screen_description) {
     private val binding by viewBinding(ScreenDescriptionBinding::bind)
     private val viewModel:DescriptionViewModel by viewModels<DescriptionViewModelImpl>()
     private lateinit var book:BookData
-
+    private val args:DescriptionScreenArgs by navArgs()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.openScreenReadLiveData.observe(this,openScreenReadObserver)
+//        viewModel.openScreenReadLiveData.observe(this,openScreenReadObserver)
         viewModel.changeImgResLiveData.observe(this,changeImgResObserver)
         viewModel.messageLiveData.observe(this,messageObserver)
         viewModel.enablingDownloadBtnLiveData.observe(this,enablingDownloadBtnObserver)
@@ -37,8 +38,8 @@ class DescriptionScreen : Fragment(R.layout.screen_description) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        book = args.book
 
-         book = arguments?.getSerializable("book") as BookData
 
         if (File(requireContext().filesDir,book.title).exists()){
             binding.btnDownload.setImageResource(R.drawable.ic_downloaded)
@@ -72,13 +73,13 @@ class DescriptionScreen : Fragment(R.layout.screen_description) {
         binding.btnDownload.isEnabled = it
     }
 
-    private val openScreenReadObserver = Observer<BookData> {
+   /* private val openScreenReadObserver = Observer<BookData> {
         val bundle = Bundle()
         bundle.putSerializable("book",it)
         val fragment = ReadScreen()
         fragment.arguments = bundle
         replaceScreenAddToStack(fragment)
-    }
+    }*/
 
     private val enablingReadBtnObserver = Observer<Boolean> {
         binding.btnContinueReading.isEnabled = it
@@ -91,6 +92,9 @@ class DescriptionScreen : Fragment(R.layout.screen_description) {
             }
             btnContinueReading.setOnClickListener {
                 viewModel.btnReadClicked(book)
+            }
+            btnBack.setOnClickListener {
+                viewModel.btnBackClicked()
             }
         }
     }

@@ -1,6 +1,7 @@
 package uz.gita.bookappcleanarchitecture.domain.repository
 
 import android.content.Context
+import androidx.room.util.query
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -88,6 +89,101 @@ class AppRepositoryImpl @Inject constructor(
 
         return Result.success(list)
     }
+
+    override suspend fun getBooksByGenre(genre: String): Result<List<BookData>> = withContext(Dispatchers.IO){
+        val _genre = genre.lowercase()
+
+//        myLog("getAllBooksByGenre")
+
+        try {
+
+            val documents = fireStore.collection("books").whereEqualTo("genre", _genre).get()
+                .await()
+
+
+            val books = mutableListOf<BookData>()
+
+            documents.forEach {
+                books.add(
+                    BookData(
+                        (it.get("id") as Long).toInt(),
+                        it.get("coverUrl") as String,
+                        it.get("bookUrl") as String,
+                        it.get("title") as String,
+                        it.get("author") as String,
+                        it.get("rate") as Double,
+                        it.get("reference") as String
+                    )
+                )
+            }
+
+            return@withContext Result.success(books)
+        }catch (e:Exception){
+            return@withContext Result.failure(e)
+        }
+    }
+
+    override suspend fun getRecommendedBooksByQuery(query: String): Result<List<BookData>> = withContext(Dispatchers.IO) {
+        val documents = fireStore.collection("books").whereGreaterThanOrEqualTo("title", query)
+            .whereLessThanOrEqualTo("title", query + "\uf8ff").get().await()
+
+        try {
+            val books = mutableListOf<BookData>()
+
+            documents.forEach {
+                val rate =  it.get("rate") as Double
+                if (rate >3.9) {
+                    books.add(
+                        BookData(
+                            (it.get("id") as Long).toInt(),
+                            it.get("coverUrl") as String,
+                            it.get("bookUrl") as String,
+                            it.get("title") as String,
+                            it.get("author") as String,
+                            it.get("rate") as Double,
+                            it.get("reference") as String
+                        )
+                    )
+                }
+            }
+
+            return@withContext Result.success(books)
+        }catch (e:Exception){
+            return@withContext Result.failure(e)
+        }
+    }
+
+    override suspend fun getBooksByQueryAndGenre(query: String, genre: String): Result<List<BookData>>  = withContext(Dispatchers.IO){
+        val _genre = genre.lowercase()
+        val documents = fireStore.collection("books").whereGreaterThanOrEqualTo("title", query)
+            .whereLessThanOrEqualTo("title", query + "\uf8ff").get().await()
+
+        try {
+            val books = mutableListOf<BookData>()
+
+            documents.forEach {
+                val genre_ = it.get("genre") as String
+                if (genre_ == _genre) {
+                    books.add(
+                        BookData(
+                            (it.get("id") as Long).toInt(),
+                            it.get("coverUrl") as String,
+                            it.get("bookUrl") as String,
+                            it.get("title") as String,
+                            it.get("author") as String,
+                            it.get("rate") as Double,
+                            it.get("reference") as String
+                        )
+                    )
+                }
+            }
+
+            return@withContext Result.success(books)
+        }catch (e:Exception){
+            return@withContext Result.failure(e)
+        }
+    }
+
 
     private suspend fun getAllBooksByGenre(genre: String): List<BookData> {
         val _genre = genre.lowercase()

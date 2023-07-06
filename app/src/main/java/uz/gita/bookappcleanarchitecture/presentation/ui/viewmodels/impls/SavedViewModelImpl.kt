@@ -1,5 +1,6 @@
 package uz.gita.bookappcleanarchitecture.presentation.ui.viewmodels.impls
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,6 +21,7 @@ class SavedViewModelImpl @Inject constructor(
     override val savedBooksLiveData: MutableLiveData<List<BookData>> = MutableLiveData()
     override val messageLiveData: MutableLiveData<String> = MutableLiveData()
     override val openDescriptionScreenLiveData: MutableLiveData<BookData> = MutableLiveData()
+    override val placeHolderLiveData: MutableLiveData<Int> = MutableLiveData()
 
     init {
         loadSavedBooks()
@@ -28,7 +30,12 @@ class SavedViewModelImpl @Inject constructor(
     override fun loadSavedBooks() {
         useCase.loadSavedBooks().onEach {result->
             result.onSuccess {
-                savedBooksLiveData.value = it
+                if (it.isEmpty())
+                    placeHolderLiveData.value = View.VISIBLE
+                else {
+                    placeHolderLiveData.value = View.GONE
+                    savedBooksLiveData.value = it
+                }
             }
             result.onFailure {
                 messageLiveData.value = it.message

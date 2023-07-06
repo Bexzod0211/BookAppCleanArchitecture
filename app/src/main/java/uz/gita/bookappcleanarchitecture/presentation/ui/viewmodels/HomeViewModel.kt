@@ -8,7 +8,12 @@ interface HomeViewModel {
     val progressBarLiveData:LiveData<Boolean>
     val toastLiveData:LiveData<String>
     val openDescriptionScreenLiveData:LiveData<BookData>
+    val placeHolderVisibilityLiveData:LiveData<Int>
+    val openShareMenuLiveData:LiveData<Unit>
 
     fun loadRecommendedBooks()
     fun itemClicked(book:BookData)
+    fun moreClickedBy(name:String)
+    fun onQueryChanged(query:String)
+    fun btnShareClicked()
 }

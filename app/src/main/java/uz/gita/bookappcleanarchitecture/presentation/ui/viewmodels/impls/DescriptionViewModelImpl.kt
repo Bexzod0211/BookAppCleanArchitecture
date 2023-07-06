@@ -8,8 +8,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import uz.gita.bookappcleanarchitecture.R
 import uz.gita.bookappcleanarchitecture.data.model.BookData
+import uz.gita.bookappcleanarchitecture.presentation.direction.DescriptionDirection
 import uz.gita.bookappcleanarchitecture.presentation.ui.viewmodels.DescriptionViewModel
 import uz.gita.bookappcleanarchitecture.usecase.DescriptionUseCase
 import uz.gita.bookappcleanarchitecture.usecase.impls.DescriptionUseCaseImpl
@@ -17,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DescriptionViewModelImpl @Inject constructor(
-    private val useCase: DescriptionUseCase
+    private val useCase: DescriptionUseCase,
+    private val direction:DescriptionDirection
     ) : DescriptionViewModel, ViewModel(){
     override val messageLiveData:MutableLiveData<String> = MutableLiveData()
     override val changeImgResLiveData:MutableLiveData<Int> = MutableLiveData()
@@ -45,6 +48,12 @@ class DescriptionViewModelImpl @Inject constructor(
 
     override fun btnReadClicked(book: BookData) {
         openScreenReadLiveData.value = book
+    }
+
+    override fun btnBackClicked() {
+        viewModelScope.launch {
+            direction.back()
+        }
     }
 
 }

@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class CategoryAdapter @Inject constructor() : ListAdapter<CategoryData, CategoryAdapter.Holder>(MyDiffUtil) {
     private lateinit var onItemClickListener:(BookData)->Unit
-
+    private lateinit var onMoreBtnClicked:(String)->Unit
     object MyDiffUtil : DiffUtil.ItemCallback<CategoryData>() {
 
         override fun areItemsTheSame(oldItem: CategoryData, newItem: CategoryData): Boolean {
@@ -28,6 +28,11 @@ class CategoryAdapter @Inject constructor() : ListAdapter<CategoryData, Category
 
 
     inner class Holder(private val binding: ItemExploreBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.viewOpenMore.setOnClickListener {
+                onMoreBtnClicked.invoke(getItem(adapterPosition).genre)
+            }
+        }
         fun bind(position: Int) {
             getItem(position).apply {
                 binding.txtGenre.text = genre
@@ -55,6 +60,10 @@ class CategoryAdapter @Inject constructor() : ListAdapter<CategoryData, Category
 
     fun setOnItemClickListener(block:(BookData)->Unit){
         onItemClickListener = block
+    }
+
+    fun setOnMoreBtnClicked(block:(String)->Unit){
+        onMoreBtnClicked = block
     }
 
 }

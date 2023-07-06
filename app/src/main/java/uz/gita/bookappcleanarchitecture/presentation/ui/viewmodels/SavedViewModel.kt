@@ -7,6 +7,7 @@ interface SavedViewModel {
     val savedBooksLiveData:LiveData<List<BookData>>
     val messageLiveData:LiveData<String>
     val openDescriptionScreenLiveData:LiveData<BookData>
+    val placeHolderLiveData:LiveData<Int>
 
     fun loadSavedBooks()
     fun itemClicked(book:BookData)

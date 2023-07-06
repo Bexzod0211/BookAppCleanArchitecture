@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import uz.gita.bookappcleanarchitecture.data.model.BookData
 import uz.gita.bookappcleanarchitecture.data.model.CategoryData
+import uz.gita.bookappcleanarchitecture.presentation.direction.ExploreDirection
 import uz.gita.bookappcleanarchitecture.presentation.ui.viewmodels.ExploreViewModel
 import uz.gita.bookappcleanarchitecture.usecase.ExploreUseCase
 import uz.gita.bookappcleanarchitecture.usecase.impls.ExploreUseCaseImpl
@@ -17,7 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExploreViewModelImpl @Inject constructor(
-    private val useCase: ExploreUseCase
+    private val useCase: ExploreUseCase,
+    private val direction:ExploreDirection
 ) : ViewModel(), ExploreViewModel {
     override val allBooksLiveData: MutableLiveData<List<CategoryData>> = MutableLiveData()
     override val progressBarLiveData: MutableLiveData<Boolean> = MutableLiveData()
@@ -48,6 +50,12 @@ class ExploreViewModelImpl @Inject constructor(
 
     override fun itemClicked(book: BookData) {
         openDescriptionScreenLiveData.value = book
+    }
+
+    override fun openMoreScreen(genre: String) {
+        viewModelScope.launch {
+            direction.openMoreScreen(genre)
+        }
     }
 
 }

@@ -13,5 +13,6 @@ interface DescriptionViewModel {
 
     fun btnDownLoadClicked(context: Context,book:BookData)
     fun btnReadClicked(book:BookData)
+    fun btnBackClicked()
 
 }

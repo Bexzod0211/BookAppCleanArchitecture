@@ -12,4 +12,5 @@ interface ExploreViewModel  {
 
     fun loadAllBooks()
     fun itemClicked(book:BookData)
+    fun openMoreScreen(genre:String)
 }

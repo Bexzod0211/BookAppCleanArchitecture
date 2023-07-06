@@ -9,5 +9,33 @@
         android:id="@+id/mainScreen"
         android:name="uz.gita.bookappcleanarchitecture.presentation.ui.screens.main.MainScreen"
         android:label="screen_main"
-        tools:layout="@layout/screen_main" />
+        tools:layout="@layout/screen_main" >
+        <action
+            android:id="@+id/action_mainScreen_to_descriptionScreen"
+            app:destination="@id/descriptionScreen" />
+        <action
+            android:id="@+id/action_mainScreen_to_moreScreen"
+            app:destination="@id/moreScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/descriptionScreen"
+        android:name="uz.gita.bookappcleanarchitecture.presentation.ui.screens.description.DescriptionScreen"
+        android:label="screen_description"
+        tools:layout="@layout/screen_description" >
+        <argument
+            android:name="book"
+            app:argType="uz.gita.bookappcleanarchitecture.data.model.BookData" />
+    </fragment>
+    <fragment
+        android:id="@+id/moreScreen"
+        android:name="uz.gita.bookappcleanarchitecture.presentation.ui.screens.more.MoreScreen"
+        android:label="screen_more"
+        tools:layout="@layout/screen_more" >
+        <argument
+            android:name="name"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_moreScreen_to_descriptionScreen"
+            app:destination="@id/descriptionScreen" />
+    </fragment>
 </navigation>
