@@ -29,7 +29,7 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.openDescriptionScreenLiveData.observe(this, openDescriptionScreenObserver)
+//        viewModel.openDescriptionScreenLiveData.observe(this, openDescriptionScreenObserver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,12 +68,12 @@ class ExploreScreen : Fragment(R.layout.screen_explore) {
         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
     }
 
-    private val openDescriptionScreenObserver = Observer<BookData> {
+    /*private val openDescriptionScreenObserver = Observer<BookData> {
         val bundle = Bundle()
         bundle.putSerializable("book",it)
         val fragment = DescriptionScreen()
         fragment.arguments = bundle
         replaceScreenAddToStack(fragment)
-    }
+    }*/
 
 }

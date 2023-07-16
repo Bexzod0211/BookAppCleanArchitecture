@@ -25,9 +25,21 @@ class SavedViewModelImpl @Inject constructor(
     override val messageLiveData: MutableLiveData<String> = MutableLiveData()
 //    override val openDescriptionScreenLiveData: MutableLiveData<BookData> = MutableLiveData()
     override val placeHolderLiveData: MutableLiveData<Int> = MutableLiveData()
-
+    override val lastReadBookLiveData: MutableLiveData<BookData> = MutableLiveData()
+    override val recentViewVisibilityLiveData: MutableLiveData<Int> = MutableLiveData()
     init {
         loadSavedBooks()
+        useCase.getLastReadBook().onEach {result ->
+            result.onSuccess {lrBook->
+                if (lrBook == null){
+                    recentViewVisibilityLiveData.value =View.GONE
+                }
+                else {
+                    recentViewVisibilityLiveData.value = View.VISIBLE
+                    lastReadBookLiveData.value = lrBook
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     override fun loadSavedBooks() {
@@ -51,5 +63,15 @@ class SavedViewModelImpl @Inject constructor(
         viewModelScope.launch {
             direction.openDescriptionScreen(book)
         }
+    }
+
+    override fun openReadScreen() {
+        useCase.getLastReadBook().onEach {result ->
+            result.onSuccess {lrBook->
+                lrBook?.let {
+                    direction.openReadScreen(it)
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 }

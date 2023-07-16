@@ -24,7 +24,7 @@ class ExploreViewModelImpl @Inject constructor(
     override val allBooksLiveData: MutableLiveData<List<CategoryData>> = MutableLiveData()
     override val progressBarLiveData: MutableLiveData<Boolean> = MutableLiveData()
     override val messageLiveData: MutableLiveData<String> = MutableLiveData()
-    override val openDescriptionScreenLiveData: MutableLiveData<BookData> = MutableLiveData()
+//    override val openDescriptionScreenLiveData: MutableLiveData<BookData> = MutableLiveData()
 
     init {
         myLog("ViewModel init")
@@ -49,7 +49,10 @@ class ExploreViewModelImpl @Inject constructor(
     }
 
     override fun itemClicked(book: BookData) {
-        openDescriptionScreenLiveData.value = book
+//        openDescriptionScreenLiveData.value = book1
+        viewModelScope.launch {
+            direction.openDescriptionScreen(book)
+        }
     }
 
     override fun openMoreScreen(genre: String) {

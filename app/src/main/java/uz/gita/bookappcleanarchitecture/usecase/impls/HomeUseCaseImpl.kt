@@ -26,9 +26,7 @@ class HomeUseCaseImpl @Inject constructor(private val repository: AppRepository)
         emit(repository.getRecommendedBooksByQuery(query))
     }
 
-    override fun getLastReadBook(): Flow<Result<BookData?>> = flow{
-        emit(repository.getLastReadBook())
-    }
+
 
 
 }

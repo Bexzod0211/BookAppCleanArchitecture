@@ -5,6 +5,7 @@
         android:title="Home"
         android:icon="@drawable/ic_home"
         app:showAsAction="ifRoom"
+        android:fontFamily="@font/alike_angular"
         />
 
 
@@ -12,12 +13,14 @@
         android:title="Saved"
         android:icon="@drawable/ic_saved"
         app:showAsAction="ifRoom"
+        android:fontFamily="@font/alike_angular"
         />
 
     <item android:id="@+id/menu_explore"
         android:title="Explore"
         android:icon="@drawable/ic_explore"
         app:showAsAction="ifRoom"
+        android:fontFamily="@font/alike_angular"
         />
 
     <!--<item android:id="@+id/menu_profile"

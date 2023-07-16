@@ -25,6 +25,7 @@
         app:menu="@menu/bottom_nav_menu"
         android:id="@+id/bottom_nav"
         android:scrollIndicators="bottom"
+        android:fontFamily="@font/alike_angular"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

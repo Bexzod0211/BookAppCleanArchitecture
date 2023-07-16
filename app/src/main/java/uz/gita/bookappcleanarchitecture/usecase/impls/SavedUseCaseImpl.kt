@@ -14,4 +14,7 @@ class SavedUseCaseImpl @Inject constructor(
     override fun loadSavedBooks(): Flow<Result<List<BookData>>>  = flow{
         emit(repository.getAllSavedBooks())
     }
+    override fun getLastReadBook(): Flow<Result<BookData?>> = flow{
+        emit(repository.getLastReadBook())
+    }
 }

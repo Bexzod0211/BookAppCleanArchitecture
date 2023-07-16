@@ -81,7 +81,7 @@ class AppRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getAllBooks(): Result<List<CategoryData>>  {
-        val genres = arrayListOf("Adventure", "Psychology", "Classics", "Comic")
+        val genres = getAllGenres()
         val list = arrayListOf<CategoryData>()
 
         genres.forEach {genre->
@@ -90,6 +90,18 @@ class AppRepositoryImpl @Inject constructor(
 
 
         return Result.success(list)
+    }
+
+    private suspend fun getAllGenres():List<String>{
+        val documents = fireStore.collection("category").get().await()
+        val list = mutableListOf<String>()
+        documents.forEach {
+            list.add(
+                it.get("genre") as String
+            )
+        }
+
+        return list
     }
 
     override suspend fun getBooksByGenre(genre: String): Result<List<BookData>> = withContext(Dispatchers.IO){
@@ -126,15 +138,17 @@ class AppRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getRecommendedBooksByQuery(query: String): Result<List<BookData>> = withContext(Dispatchers.IO) {
-        val documents = fireStore.collection("books").whereGreaterThanOrEqualTo("title", query)
-            .whereLessThanOrEqualTo("title", query + "\uf8ff").get().await()
+//        val documents = fireStore.collection("books").whereArrayContains("title",query).get().await()
+//        myLog(documents.documents[0].get("title") as String)
+        val documents = fireStore.collection("books").whereGreaterThan("rate", 3.9).orderBy("rate").get().await()
 
         try {
             val books = mutableListOf<BookData>()
 
             documents.forEach {
-                val rate =  it.get("rate") as Double
-                if (rate >3.9) {
+                val title =  it.get("title") as String
+//                myLog("${title.contains(query.lowercase(),true)}  title = $title , query = ${query.lowercase()}")
+                if (title.contains(query.lowercase(),true)) {
                     books.add(
                         BookData(
                             (it.get("id") as Long).toInt(),
@@ -157,15 +171,17 @@ class AppRepositoryImpl @Inject constructor(
 
     override suspend fun getBooksByQueryAndGenre(query: String, genre: String): Result<List<BookData>>  = withContext(Dispatchers.IO){
         val _genre = genre.lowercase()
-        val documents = fireStore.collection("books").whereGreaterThanOrEqualTo("title", query)
-            .whereLessThanOrEqualTo("title", query + "\uf8ff").get().await()
+//        val documents = fireStore.collection("books").whereArrayContains("title",query).get().await()
+
+        val documents = fireStore.collection("books").whereEqualTo("genre", _genre).get()
+            .await()
 
         try {
             val books = mutableListOf<BookData>()
 
             documents.forEach {
-                val genre_ = it.get("genre") as String
-                if (genre_ == _genre) {
+                val title = it.get("title") as String
+                if (title.contains(query.lowercase(),true)) {
                     books.add(
                         BookData(
                             (it.get("id") as Long).toInt(),

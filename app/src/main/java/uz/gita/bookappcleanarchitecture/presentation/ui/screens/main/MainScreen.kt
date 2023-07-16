@@ -16,20 +16,27 @@ import uz.gita.bookappcleanarchitecture.utils.replaceScreen
 @AndroidEntryPoint
 class MainScreen : Fragment(R.layout.screen_main) {
     private val binding by viewBinding(ScreenMainBinding::bind)
+    private var currentScreen:Fragment? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        replaceScreen(HomeScreen())
+        if (currentScreen == null){
+            replaceScreen(HomeScreen())
+        }else
+            replaceScreen(currentScreen?:HomeScreen())
 
 
         binding.bottomNav.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.menu_home->{
-                    addScreen(HomeScreen())
+                    currentScreen = HomeScreen()
+                    addScreen(currentScreen!!)
                 }
                 R.id.menu_saved->{
+                    currentScreen = SavedScreen()
                     addScreen(SavedScreen())
                 }
                 R.id.menu_explore->{
+                    currentScreen = ExploreScreen()
                     addScreen(ExploreScreen())
                 }
 //                R.id.menu_profile->{

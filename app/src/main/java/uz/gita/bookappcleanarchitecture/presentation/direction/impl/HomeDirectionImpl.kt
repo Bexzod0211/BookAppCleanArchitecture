@@ -18,7 +18,5 @@ class HomeDirectionImpl @Inject constructor(
         appNavigator.navigateTo(MainScreenDirections.actionMainScreenToDescriptionScreen(book))
     }
 
-    override suspend fun openReadScreen(book: BookData) {
-       appNavigator.navigateTo(MainScreenDirections.actionMainScreenToReadScreen(book))
-    }
+
 }

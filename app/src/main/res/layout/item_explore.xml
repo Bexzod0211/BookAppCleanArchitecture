@@ -17,6 +17,7 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:id="@+id/txt_genre"
+        android:fontFamily="@font/alike_angular"
         />
 
     <ImageView

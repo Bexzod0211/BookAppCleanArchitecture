@@ -29,22 +29,11 @@ class HomeViewModelImpl @Inject constructor(
     override val openDescriptionScreenLiveData: MutableLiveData<BookData> = MutableLiveData()
     override val placeHolderVisibilityLiveData: MutableLiveData<Int> = MutableLiveData()
     override val openShareMenuLiveData: MutableLiveData<Unit> = MutableLiveData()
-    override val lastReadBookLiveData: MutableLiveData<BookData> = MutableLiveData()
-    override val recentViewVisibilityLiveData: MutableLiveData<Int> = MutableLiveData()
+
 
     init {
         loadRecommendedBooks()
-        useCase.getLastReadBook().onEach {result ->
-        result.onSuccess {lrBook->
-            if (lrBook == null){
-                recentViewVisibilityLiveData.value =View.GONE
-            }
-            else {
-                recentViewVisibilityLiveData.value = View.VISIBLE
-                lastReadBookLiveData.value = lrBook
-            }
-        }
-        }.launchIn(viewModelScope)
+
     }
 
     override fun loadRecommendedBooks() {
@@ -97,14 +86,6 @@ class HomeViewModelImpl @Inject constructor(
         openShareMenuLiveData.value = Unit
     }
 
-    override fun openReadScreen() {
-        useCase.getLastReadBook().onEach {result ->
-            result.onSuccess {lrBook->
-                lrBook?.let {
-                    direction.openReadScreen(it)
-                }
-            }
-        }.launchIn(viewModelScope)
-    }
+
 
 }

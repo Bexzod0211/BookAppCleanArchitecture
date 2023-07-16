@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import uz.gita.bookappcleanarchitecture.R
 import uz.gita.bookappcleanarchitecture.data.model.BookData
@@ -37,7 +38,8 @@ class SavedScreen : Fragment(R.layout.screen_saved) {
         viewModel.messageLiveData.observe(viewLifecycleOwner,messageObserver)
          viewModel.savedBooksLiveData.observe(viewLifecycleOwner,savedBooksObserver)
         viewModel.placeHolderLiveData.observe(viewLifecycleOwner,placeHolderObserver)
-
+        viewModel.lastReadBookLiveData.observe(viewLifecycleOwner,lastReadBookObserver)
+        viewModel.recentViewVisibilityLiveData.observe(viewLifecycleOwner,recentViewVisibilityObserver)
         binding.apply {
             recyclerSaved.adapter = adapter
             recyclerSaved.layoutManager = GridLayoutManager(requireContext(),2)
@@ -46,8 +48,24 @@ class SavedScreen : Fragment(R.layout.screen_saved) {
         adapter.setOnItemClickListener {
             viewModel.itemClicked(it)
         }
+
+        attachClickListeners()
+    }
+    private val lastReadBookObserver = Observer<BookData> {
+        binding.apply {
+            Glide
+                .with(requireContext())
+                .load(it.coverUrl)
+                .into(imageBook)
+            txtAuthor.text = it.author
+            txtTitle.text = it.title
+        }
     }
 
+    private val recentViewVisibilityObserver = Observer<Int> {
+        binding.innerView2.visibility = it
+        binding.imgRecent.visibility = it
+    }
     private val placeHolderObserver = Observer<Int> {
         binding.placeHolder.visibility = it
     }
@@ -66,5 +84,14 @@ class SavedScreen : Fragment(R.layout.screen_saved) {
         val screen = DescriptionScreen()
         screen.arguments = bundle
         replaceScreenAddToStack(screen)
+    }
+
+    private fun attachClickListeners(){
+        binding.apply {
+            innerView2.setOnClickListener {
+
+                viewModel.openReadScreen()
+            }
+        }
     }
 }

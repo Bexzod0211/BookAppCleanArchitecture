@@ -38,7 +38,7 @@ class HomeScreen : Fragment(R.layout.screen_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel.openDescriptionScreenLiveData.observe(this,openDescriptionScreenObserver)
-
+        viewModel.openShareMenuLiveData.observe(this,openShareMenuObserver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,9 +47,8 @@ class HomeScreen : Fragment(R.layout.screen_home) {
         viewModel.progressBarLiveData.observe(viewLifecycleOwner,progressBarObserver)
         viewModel.toastLiveData.observe(viewLifecycleOwner,toastObserver)
         viewModel.placeHolderVisibilityLiveData.observe(viewLifecycleOwner,placeHolderVisibilityObserver)
-        viewModel.openShareMenuLiveData.observe(viewLifecycleOwner,openShareMenuObserver)
-        viewModel.lastReadBookLiveData.observe(viewLifecycleOwner,lastReadBookObserver)
-        viewModel.recentViewVisibilityLiveData.observe(viewLifecycleOwner,recentViewVisibilityObserver)
+
+
 
         binding.apply {
             recyclerHome.adapter = adapter
@@ -86,26 +85,10 @@ class HomeScreen : Fragment(R.layout.screen_home) {
             btnShare.setOnClickListener {
                 viewModel.btnShareClicked()
             }
-            binding.innerView2.setOnClickListener {
-                viewModel.openReadScreen()
-            }
         }
     }
 
-    private val lastReadBookObserver = Observer<BookData> {
-        binding.apply {
-            Glide
-                .with(requireContext())
-                .load(it.coverUrl)
-                .into(imageBook)
-            txtAuthor.text = it.author
-            txtTitle.text = it.title
-        }
-    }
 
-    private val recentViewVisibilityObserver = Observer<Int> {
-        binding.innerView2.visibility = it
-    }
 
     private val openShareMenuObserver = Observer<Unit> {
         val shareIntent = Intent(Intent.ACTION_SEND)

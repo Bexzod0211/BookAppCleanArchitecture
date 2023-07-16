@@ -53,7 +53,7 @@ class DescriptionScreen : Fragment(R.layout.screen_description) {
                 .into(imgCover)
             txtStar.text = "${book.rate}"
             txtTitle.text = book.title
-            txtAuthor.text = "By $${book.author}"
+            txtAuthor.text = "By ${book.author}"
         }
 
         attachClickListeners()
